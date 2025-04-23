@@ -13,6 +13,10 @@ import deleteTutorial from "./src/routes/tutorial/DeleteTutorial.js";
 import EditTutorial from "./src/routes/tutorial/EditTutorial.js";
 import GetSingleTips from "./src/routes/Tips/GetSingleTips.js";
 import GetAllTips from "./src/routes/Tips/GetAllTips.js";
+import DeleteTips from "./src/routes/Tips/DeleteTips.js";
+import EditTips from "./src/routes/Tips/EditTips.js";
+import GetAllTipsUser from "./src/routes/user/GetAllTips.js";
+import GetAllTutorialUser from "./src/routes/user/GetAllTutorial.js";
 
 const app = express();
 const port = process.env.PORT;
@@ -39,12 +43,18 @@ app.post("/api/v2/post/tutorial", tutorialUpload, PostTutorial);
 
 app.get("/api/v2/list/tips", GetAllTips);
 app.get("/api/v2/single/tips/:Tips_Id", GetSingleTips);
-
 app.get("/api/v2/list/tutorial", GetTutorial);
 app.get("/api/v2/single/tutorial/:Tutor_Id", SingleTutorial);
 
 app.delete("/api/v2/delete/tutorial/:Tutor_Id", deleteTutorial);
+app.delete("/api/v2/delete/tips/:Tips_Id", DeleteTips);
+
 app.put("/api/v2/update/tutorial/:Tutor_Id", tutorialUpload, EditTutorial);
+app.put("/api/v2/update/tips/:Tips_Id", tipsUpload, EditTips);
+
+// user
+app.get("/api/v1/get/all/tips", GetAllTipsUser);
+app.get("/api/v1/get/all/tutorial", GetAllTutorialUser);
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
