@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import upload from "./src/middleware/Storage.js";
+import cors from "cors"
 dotenv.config();
 
 import PostTips from "./src/controllers/Tips/PostTips.js";
@@ -28,6 +29,7 @@ const tipsUpload = upload.fields([
 
 const tutorialUpload = upload.fields([{ name: "Thumbnail", maxCount: 1 }]);
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
