@@ -10,19 +10,23 @@ export const uploadImages = upload.fields([
 export default async function edit(req, res) {
   try {
     const { Tips_Id } = req.params;
-    const { Title, Description } = req.body;
+    const { Title, Description, existingThumbnail, existingImage } = req.body;
     const files = req.files;
 
-    if (!files?.Thumbnail || !files?.Image) {
-      res.status(400).json({ message: "Thumbnail and Image are required" });
-      return;
+    let thumbnailUrl = existingThumbnail; // Default dari client
+    let imageUrl = existingImage; // Default dari client
+
+    if (files?.Thumbnail && files.Thumbnail.length > 0) {
+      // kalau upload thumbnail baru
+      thumbnailUrl = await uploadImage(files.Thumbnail[0], "thumbnails");
     }
 
-    // Upload images to Supabase
-    const thumbnailUrl = await uploadImage(files.Thumbnail[0], "thumbnails");
-    const imageUrl = await uploadImage(files.Image[0], "images");
+    if (files?.Image && files.Image.length > 0) {
+      // kalau upload image baru
+      imageUrl = await uploadImage(files.Image[0], "images");
+    }
 
-    // Insert into DB
+    // Update ke database
     const { data, error } = await supabase
       .from("Tips_N_Trick")
       .update([
@@ -33,7 +37,7 @@ export default async function edit(req, res) {
           Image: imageUrl,
         },
       ])
-      .eq("Tips_Id",Tips_Id)
+      .eq("Tips_Id", Tips_Id)
       .select("*")
       .maybeSingle();
 
@@ -41,7 +45,7 @@ export default async function edit(req, res) {
 
     return res.status(201).json({
       type: "success",
-      message:`update tips success for Id : ${Tips_Id}`,
+      message: `update tips success for Id : ${Tips_Id}`,
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
