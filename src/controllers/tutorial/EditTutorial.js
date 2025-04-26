@@ -1,5 +1,5 @@
 import supabase from "../../supabase/supabase.js";
-import uploadImage from "../../utils/uploadImage.js"; // pastikan uploadImage ada!!
+import { uploadImage } from "../../services/TipsNtrickServices.js";
 
 export default async function edit(req, res) {
   try {
