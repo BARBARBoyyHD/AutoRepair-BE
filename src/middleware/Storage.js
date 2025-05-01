@@ -1,6 +1,5 @@
 // storage.js
 import multer from "multer";
-import path from "path";
 
 // Only accept images
 const storage = multer.memoryStorage();

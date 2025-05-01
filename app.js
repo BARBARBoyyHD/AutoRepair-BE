@@ -18,6 +18,8 @@ import DeleteTips from "./src/routes/Tips/DeleteTips.js";
 import EditTips from "./src/routes/Tips/EditTips.js";
 import GetAllTipsUser from "./src/routes/user/GetAllTips.js";
 import GetAllTutorialUser from "./src/routes/user/GetAllTutorial.js";
+import EditBengkel from "./src/routes/bengkel/EditBengkel.js"
+import PostBengkel from "./src/routes/bengkel/PostBengkel.js"
 
 const app = express();
 const port = process.env.PORT;
@@ -28,8 +30,9 @@ const tipsUpload = upload.fields([
 ]);
 
 const tutorialUpload = upload.fields([{ name: "Thumbnail", maxCount: 1 }]);
+const bengkelUpload = upload.fields([{ name: "Image", maxCount: 1 }]);
 
-app.use(cors())
+app.use(cors({}))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -42,6 +45,7 @@ app.post("/api/v2/admin/register", RegisterAdminRoutes);
 app.post("/api/v2/admin/login", LoginAdminRoutes);
 app.post("/api/v2/post/tips", tipsUpload, PostTips);
 app.post("/api/v2/post/tutorial", tutorialUpload, PostTutorial);
+app.post("/api/v2/bengkel/post",bengkelUpload,PostBengkel)
 
 app.get("/api/v2/list/tips", GetAllTips);
 app.get("/api/v2/single/tips/:Tips_Id", GetSingleTips);
@@ -53,6 +57,7 @@ app.delete("/api/v2/delete/tips/:Tips_Id", DeleteTips);
 
 app.put("/api/v2/update/tutorial/:Tutor_Id", tutorialUpload, EditTutorial);
 app.put("/api/v2/update/tips/:Tips_Id", tipsUpload, EditTips);
+app.put("/api/v2/bengkel/edit/:Bengkel_Id",bengkelUpload,EditBengkel)
 
 // user
 app.get("/api/v1/get/all/tips", GetAllTipsUser);
