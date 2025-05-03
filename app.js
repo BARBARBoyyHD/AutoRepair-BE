@@ -22,7 +22,8 @@ import EditBengkel from "./src/routes/bengkel/EditBengkel.js";
 import PostBengkel from "./src/routes/bengkel/PostBengkel.js";
 import GetAllBengkel from "./src/routes/bengkel/GetAllBengkel.js";
 import GetSingleBengkel from "./src/routes/bengkel/GetSingleBengkel.js";
-import DeleteBengkel from "./src/routes/bengkel/DeleteBengkel.js"
+import DeleteBengkel from "./src/routes/bengkel/DeleteBengkel.js";
+import FindBengkel from "./src/routes/bengkel/FindBengkel.js";
 
 const app = express();
 const port = process.env.PORT;
@@ -54,7 +55,6 @@ app.post("/api/v2/admin/login", LoginAdminRoutes);
 app.post("/api/v2/post/tips", tipsUpload, PostTips);
 app.post("/api/v2/post/tutorial", tutorialUpload, PostTutorial);
 app.post("/api/v2/bengkel/post", bengkelUpload, PostBengkel);
-app.get("/api/v2/single/bengkel/:Bengkel_Id", GetSingleBengkel);
 
 app.get("/api/v2/list/tips", GetAllTips);
 app.get("/api/v2/single/tips/:Tips_Id", GetSingleTips);
@@ -73,6 +73,8 @@ app.put("/api/v2/bengkel/edit/:Bengkel_Id", bengkelUpload, EditBengkel);
 // user
 app.get("/api/v1/get/all/tips", GetAllTipsUser);
 app.get("/api/v1/get/all/tutorial", GetAllTutorialUser);
+app.get("/api/v2/single/bengkel/:Bengkel_Id", GetSingleBengkel);
+app.get("/api/v1/bengkel", FindBengkel);
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
