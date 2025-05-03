@@ -35,11 +35,11 @@ const tipsUpload = upload.fields([
 
 const tutorialUpload = upload.fields([{ name: "Thumbnail", maxCount: 1 }]);
 const bengkelUpload = upload.fields([{ name: "Image", maxCount: 1 }]);
-
 app.use(
   cors({
-    origin: ["https://drivix.vercel.app/", "http://localhost:5173/"],
+    origin: ["https://drivix.vercel.app", "http://localhost:5173"],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 app.use(express.json());
