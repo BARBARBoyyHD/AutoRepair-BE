@@ -20,6 +20,9 @@ import GetAllTipsUser from "./src/routes/user/GetAllTips.js";
 import GetAllTutorialUser from "./src/routes/user/GetAllTutorial.js";
 import EditBengkel from "./src/routes/bengkel/EditBengkel.js";
 import PostBengkel from "./src/routes/bengkel/PostBengkel.js";
+import GetAllBengkel from "./src/routes/bengkel/GetAllBengkel.js";
+import GetSingleBengkel from "./src/routes/bengkel/GetSingleBengkel.js";
+import DeleteBengkel from "./src/routes/bengkel/DeleteBengkel.js"
 
 const app = express();
 const port = process.env.PORT;
@@ -34,7 +37,7 @@ const bengkelUpload = upload.fields([{ name: "Image", maxCount: 1 }]);
 
 app.use(
   cors({
-    origin: ["https://drivix.vercel.app", "http://localhost:5173"],
+    origin: ["https://drivix.vercel.app/", "http://localhost:5173/"],
     credentials: true,
   })
 );
@@ -51,14 +54,17 @@ app.post("/api/v2/admin/login", LoginAdminRoutes);
 app.post("/api/v2/post/tips", tipsUpload, PostTips);
 app.post("/api/v2/post/tutorial", tutorialUpload, PostTutorial);
 app.post("/api/v2/bengkel/post", bengkelUpload, PostBengkel);
+app.get("/api/v2/single/bengkel/:Bengkel_Id", GetSingleBengkel);
 
 app.get("/api/v2/list/tips", GetAllTips);
 app.get("/api/v2/single/tips/:Tips_Id", GetSingleTips);
 app.get("/api/v2/list/tutorial", GetTutorial);
 app.get("/api/v2/single/tutorial/:Tutor_Id", SingleTutorial);
+app.get("/api/v2/all/bengkel", GetAllBengkel);
 
 app.delete("/api/v2/delete/tutorial/:Tutor_Id", deleteTutorial);
 app.delete("/api/v2/delete/tips/:Tips_Id", DeleteTips);
+app.delete("/api/delete/bengkel/:Bengkel_Id", DeleteBengkel);
 
 app.put("/api/v2/update/tutorial/:Tutor_Id", tutorialUpload, EditTutorial);
 app.put("/api/v2/update/tips/:Tips_Id", tipsUpload, EditTips);

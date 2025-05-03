@@ -51,7 +51,7 @@ export default async function edit(req, res) {
 
     return res.status(201).json({
       type: "success",
-      data,
+      message: `Success editing bengkel for ID : ${Bengkel_Id}`,
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });

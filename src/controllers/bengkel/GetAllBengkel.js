@@ -2,17 +2,12 @@ import supabase from "../../supabase/supabase.js";
 
 export const get = async (req, res) => {
   try {
-    const { Bengkel_Id } = req.params;
-    const { data, error } = await supabase
-      .from("Bengkel")
-      .select("*")
-      .eq("Bengkel_Id", Bengkel_Id)
-      .single();
+    const { data, error } = await supabase.from("Bengkel").select("*");
 
-    if (!data) {
+    if (data.length === 0) {
       res.status(404).json({
         type: "Failed",
-        message: "Bengkel Not Found",
+        message: "You haven't created any tips",
       });
     }
 
