@@ -10,7 +10,7 @@ export const uploadImages = upload.fields([
 export default async function edit(req, res) {
   try {
     const { Tips_Id } = req.params;
-    const { Title, Description, existingThumbnail, existingImage } = req.body;
+    const { Title, Description, existingThumbnail, existingImage,category } = req.body;
     const files = req.files;
 
     let thumbnailUrl = existingThumbnail; // Default dari client
@@ -35,6 +35,7 @@ export default async function edit(req, res) {
           Description,
           Thumbnail: thumbnailUrl,
           Image: imageUrl,
+          category
         },
       ])
       .eq("Tips_Id", Tips_Id)

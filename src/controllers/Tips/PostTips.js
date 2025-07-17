@@ -9,7 +9,7 @@ export const uploadImages = upload.fields([
 
 export default async function post(req, res) {
   try {
-    const { Title, Description } = req.body;
+    const { Title, Description, category } = req.body;
     const files = req.files;
 
     if (!files?.Thumbnail || !files?.Image) {
@@ -30,6 +30,7 @@ export default async function post(req, res) {
           Description,
           Thumbnail: thumbnailUrl,
           Image: imageUrl,
+          category,
         },
       ])
       .select("*")
